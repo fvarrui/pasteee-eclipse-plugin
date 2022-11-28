@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+	<!-- popup menu action for compilation unit editors (source code editors) -->
+	<extension point="org.eclipse.ui.popupMenus">
+		<viewerContribution 
+			id="io.github.fvarrui.eclipse.plugin.pasteee.popup.compilation.unit.editor" 
+			targetID="#CompilationUnitEditorContext"> 
+			<action 
+				id="io.github.fvarrui.eclipse.plugin.pasteee.editor.action1"  
+				label="Paste.ee"
+				icon="icons/paste.png"
+				menubarPath="additions"				
+				class="io.github.fvarrui.eclipse.plugin.pasteee.actions.PasteeeAction" /> 			 
+		</viewerContribution>
+	</extension>
+	<!-- popup menu action for text editors -->
+	<extension point="org.eclipse.ui.popupMenus">
+		<viewerContribution 
+			id="io.github.fvarrui.eclipse.plugin.pasteee.popup.text.editor" 
+			targetID="#TextEditorContext"> 			
+			<action 
+				id="io.github.fvarrui.eclipse.plugin.pasteee.editor.action2"  
+				label="Paste.ee"
+				icon="icons/paste.png"
+				menubarPath="additions"				
+				class="io.github.fvarrui.eclipse.plugin.pasteee.actions.PasteeeAction" /> 			 
+		</viewerContribution>
+	</extension>
+	<!-- sets CTRL+SHIFT+C accelerator for paste.ee action -->
+	<!-- NOT WORKING!!! -->
+	<extension point="org.eclipse.ui.bindings">
+		<key sequence="Ctrl+Alt+C"
+			commandId="io.github.fvarrui.eclipse.plugin.pasteee.editor.action1"
+			schemeId="org.eclipse.ui.defaultAcceleratorConfiguration" />
+	</extension>
+	<!-- preferences page -->
+ 	<extension point="org.eclipse.ui.preferencePages">
+    	<page
+			class="io.github.fvarrui.eclipse.plugin.pasteee.preferences.PreferencesPage"
+			id="io.github.fvarrui.eclipse.plugin.pasteee.preferences.PreferencesPage"
+			name="Paste.ee" />
+	</extension>
+ 	<extension point="org.eclipse.core.runtime.preferences">
+    	<initializer class="io.github.fvarrui.eclipse.plugin.pasteee.preferences.PreferenceInitializer" />
+	</extension>
+</plugin>
