@@ -17,15 +17,13 @@ public class PasteApi {
 	
 	private static final Gson gson = new GsonBuilder().setPrettyPrinting().create(); 
 	
-	public static String paste(String apiKey, String text, String filename, String type) throws Exception {
+	public static String paste(String apiKey, String text, String filename) throws Exception {
 		
 		if (apiKey == null || apiKey.trim().isEmpty()) {
-			throw new Exception("You must set an API KEY in Paste.ee Plugin preferences page.");
+			throw new IllegalArgumentException("You must specify an API KEY");
 		}
 		
-        if (type != null && !type.isEmpty()) {
-            type = "autodetect";
-        }
+		String type = filename.contains(".") ? filename.substring(filename.lastIndexOf('.') + 1) : "autodetect";
         
         PasteRequestBody reqboby = new PasteRequestBody();
         reqboby.setEncrypted(false);

@@ -39,7 +39,6 @@ public class PasteeeAction extends ActionDelegate implements IEditorActionDelega
 		IEditorPart editor = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();			
 		
 		String filename = editor.getTitle();			
-		String type = filename.substring(filename.lastIndexOf('.') + 1);
 
 		// gets api key from preferences
 		IPreferenceStore prefs = new ScopedPreferenceStore(InstanceScope.INSTANCE, PluginActivator.PLUGIN_ID);
@@ -47,7 +46,7 @@ public class PasteeeAction extends ActionDelegate implements IEditorActionDelega
 		
 		try {
 			
-			String url = PasteApi.paste(apiKey, selectionText, filename, type);
+			String url = PasteApi.paste(apiKey, selectionText, filename);
 			
 			copyToClipboard(url);
 			
@@ -56,6 +55,14 @@ public class PasteeeAction extends ActionDelegate implements IEditorActionDelega
 					PluginActivator.PLUGIN_NAME, 
 					"Your selection has been copied to Paste.ee." + "\n" +
 					"The URL " + url + " is on your clipboard."
+			);
+			
+		} catch (IllegalArgumentException e) { 
+
+			MessageDialog.openError(
+					shell, 
+					PluginActivator.PLUGIN_NAME, 
+					"You must set an API KEY in Paste.ee Plugin preferences page."
 			);
 			
 		} catch (Exception e) {
